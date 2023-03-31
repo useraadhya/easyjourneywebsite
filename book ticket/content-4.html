@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="homepage-tabs.css">
+    <link rel="stylesheet" href="trains.css">
+    <link rel="stylesheet" href="tabs.css">
+    <link rel="stylesheet" href="trains_info.css">
+</head>
+<body>
+    <div class = "header">
+        <div>
+            <h1><span style="color:red;">E</span>asy <span style="color:red;">J</span>ourney</h1>
+        </div>
+        <nav>
+            <ul id = "MenuItems">
+              <li><a href ='./homepage.html' id="register_in_header">Register</a></li>
+              <li><a href ='./content-2.html'  >Login</a></li>
+             
+              <li><a href ='./content-4.html' >Book Ticket</a></li>
+              <li><a href ='./content-3.html' >Contact Us </a></li>
+            </ul>
+    </nav>
+
+</div>
+
+<div id ="bookticket" class="content-4">
+  <form class="booking-section"> <img class="g20" src="imgs/g20-logo.png">
+      <h2 style="text-shadow:2px 2px 5px grey,0 0 25px blue,0 0 5px darkblue; color:black">SEARCH TRAINS</h2>
+      <div>
+         <img class="icons" src="imgs/senticon.png">
+         <input class="sent" type="text" placeholder="From" id="from" required>
+         <input type="date" class="right-box-above"  id="date" required>
+         <!-- <script> 
+       newDateFormat= document.getElementById('date')
+       let day=
+        </script> -->
+      </div>
+      <div class="bet"><span style='font-size:20px;'>&#8645;</span></div>
+      <div>
+        <img class="icons" src="imgs/location.png">
+         <input  class="box-train" type="form"  placeholder="To" id="to" required>
+         
+        </div>
+      <div>
+       
+      </div>
+      <button class="search" onClick="search()">Search</button> 
+     
+    </form>
+     </div>
+
+
+       <div class="bgd-color">
+      <div class="inside-content">
+      <div class="close" id="close">+</div>
+      <h1>Trains Information</h1>
+
+      <div class="all_trains" id="table-body">
+       
+       <div class="trains_indi" > 
+
+        <div class="col1" >
+          <div id="col1row1"></div>
+       <br ><div id="col1row2" ></div>
+    </div>
+
+    <div class="col2">
+    <div id="col2row1"></div>
+    <br><div id="col2row2" ></div>
+    </div>
+
+    <div class="col3">
+     <h6></h6></div>
+    
+    <div class="col4">
+    <div id="col4row1"></div>
+    <br ><div id="col4row2"></div>
+    </div>
+    
+    </div>
+
+    <a class="link-redirect" target="_blank" href="https://www.railyatri.in/train-ticket?utm_source=tt_landing_dweb_header_ttb">BOOK TICKET<a>
+      </div>
+
+      </div>
+    </div> 
+     
+ 
+
+
+     <script>
+ 
+        const from=document.getElementById('from')
+        const to=document.getElementById('to')
+        const date=document.getElementById('date')
+       content=document.getElementById('')
+        //use backticks if we want to write html code in script tag
+        
+        function search(e)
+ {    
+   event.preventDefault();
+  console.log(date)
+ 
+    let data="";
+     url=`https://railway-w6eh.onrender.com/proxy?from=${from.value}&to=${to.value}&date=${date.value}`;
+     fetch(url).then((response)=>{
+
+       return response.json();
+     }).then((trains)=>{   
+
+//  if (from.value=="" || to.value=="" || date.value=="")
+//       
+//     console.log('hii')} 
+      console.log(trains)
+      console.log((trains.data[0]));
+      console.log(trains.data.length);
+
+  for(i=0;i<trains.data.length;i++){
+   console.log(trains.data[i].train_base.train_name);
+data+=
+   `<div class=trains_indi> <div class="col1" ><div id="col1row1">${trains.data[i].train_base.train_name}</div>
+        <br ><div id="col1row2" >${trains.data[i].train_base.train_no}</div>
+    </div>
+   <div class="col2">
+    <div id="col2row1">${trains.data[i].train_base.from_time}</div>
+    <br><div id="col2row2" >${trains.data[i].train_base.from_stn_name}</div>
+   </div>
+   <div class="col3"><span class="circle-1 pull-left"></span>
+    <span class="circle-2 pull-right"></span>
+    <span class="divider-line"></span>
+    ${trains.data[i].train_base.travel_time} hours</div>
+
+   <div class="col4">
+    <div id="col4row1">${trains.data[i].train_base.to_time}</div>
+    <br ><div id="col4row2">${trains.data[i].train_base.to_stn_name}</div>
+   </div></div>
+   <br>`
+
+ 
+        document.querySelector('.bgd-color').style.display='flex';
+  window.scrollTo(0,document.body.scrollHeight);
+  //document.body.scrollheight -to scroll to bottom
+ }
+ data+=`<center><a class="link-redirect" target="_blank" href="https://www.railyatri.in/train-ticket?utm_source=tt_landing_dweb_header_ttb">BOOK TICKET<a></center>
+  <br>
+  <center><a target="_blank" href="./tourist_places.html">SEARCH FOR TOURIST PLACES</a></center> `
+  document.getElementById("table-body").innerHTML=data;
+}
+ 
+ )
+ 
+}
+   document.getElementById('close').addEventListener('click',
+    function(){
+        document.querySelector('.bgd-color').style.display='none';
+    });
+   
+
+        </script> 
+       
+</body>
+
+</html>

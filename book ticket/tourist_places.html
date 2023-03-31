@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="tourist_places.css">
+    <title>Document</title>
+    <style>
+          h1{
+        text-align:center;
+    }
+    </style>
+  
+</head>
+<body>
+    <h1 style="font-family: Georgia, 'Times New Roman', Times, serif;"> <span style="color:red;">L</span>IVE <span style="color:blue">L</span>IFE <span style="color:green">W</span>ITH <span style="color:orange">N</span>O <span style="color:yellow">E</span>XCUSES,<span style="color:pink">T</span>RAVEL <span style="color:blueviolet">W</span>ITH <span style="color:maroon">N</span>O <span style="color:lightseagreen">R</span>EGRET</h1>
+   <div class="tourist_places_content"> <div class="tourism-img"><img class="tourism-picture" src="imgs/tourism.jpg"></div>
+    <div class="places-search">
+        <input class="city-name" type="form" id="city-name" placeholder="placename" required>
+<br>
+        <select class="kind" id="kind">
+            <option value="interesting_places">interesting_places</option>
+            <option value="amusements">amusements</option>
+            <option value="adult">adult</option>
+            <option value="accomodations">accomodations</option>
+            <option value="sport">sport</option>
+            <option value="tourist_facilities">tourist_facilities</option>
+            <option value="architecture">architecture</option>
+            <option value="historic">historic</option>
+            <option value="cultural">cultural</option>
+            <option value="industrial_facilities">industrial_facilities</option>
+            <option value="natural">natural</option>
+            <option value="religion">religion</option>
+          
+        </select>
+   <!-- <br> <input class="kind" type="form" id="kind" placeholder='kind of place' required>
+   <h4 style="margin-bottom:0px;margin-top:5px;">To search for kind of place</h4>
+   <a href="https://opentripmap.io/catalog" target="_blank" style="margin-bottom: 10px;">click me</a> -->
+    
+   <br> <input class="limit" type="number" min="1" id="number" placeholder="number of places">
+   <br><button class="search-popup-display" onClick="tourist_places()">search</button>
+    </div>
+</div>
+        <div class="popup-content">
+            <div id="popup-close-btn" class="popup-header-top" onclick="close_popup()">&times;</div>
+            <div class="popup-header">
+                <div class="popup-col1">name</div>
+                <div class="popup-col2">kinds</div>
+                <div class="popup-col3">rate</div>
+            </div>
+            <div class="popup-bottom">
+                 <div id="popup-name"></div>
+                <div id="popup-kind"></div>
+                <div id="popup-rate"></div>
+               
+              
+            </div>
+        </div>
+        <div id="overlay"></div>
+  
+    
+    <script> 
+
+const city_name=document.getElementById('city-name')
+const kind=document.getElementById('kind')
+const limit=document.getElementById('number')
+    function tourist_places(){
+        var filling=` <div id="popup-close-btn" class="popup-header-top" onclick="close_popup()">&times;</div>
+            <div class="popup-header">
+                <div class="popup-col1">name</div>
+                <div class="popup-col2">kinds</div>
+                <div class="popup-col3">rate</div>
+            </div>`
+    url=`https://api.opentripmap.com/0.1/en/places/geoname?name=${city_name.value}&apikey=5ae2e3f221c38a28845f05b6999a4d65aa8c74828bbbfe2e17031b2c`
+   
+    fetch(url).then((response)=>{
+       return response.json();
+    }).then((data)=>{
+        // if(city_name.value==""||kind.value==""||limit.value=="")
+        // {
+        //     alert('Input field is empty,please fill the complete details')
+        // }
+        // else
+        console.log(data);
+        console.log(data.lat);
+        console.log(data.lon);
+        const latitude=data.lat;
+        const longitude=data.lon;
+
+        url=`https://api.opentripmap.com/0.1/en/places/radius?radius=100000&lon=${longitude}&lat=${latitude}&kinds=${kind.value}&limit=${limit.value}&apikey=5ae2e3f221c38a28845f05b69c2169c9a9bfa0f1d67e7e97600d6f3d`
+   fetch(url).then((response)=>{
+    return response.json();
+   }).then((data)=>{
+    console.log(data)
+    console.log(data.features.length)
+    console.log(data.features[0].properties.name)
+    for(i=0;i<data.features.length;i++){
+        filling+=` <div class="popup-bottom">
+        <div id="popup-name">${data.features[i].properties.name}</div>
+                <div id="popup-kind">${data.features[i].properties.kinds}</div>
+                <div id="popup-rate">${data.features[i].properties.rate}</div>
+                </div>
+                <br>`
+               
+    }
+    filling+=`<center><a href="https://www.booking.com/index.en.html?aid=309654;label=hotels-english-en-india-KB9tA8VJx7pasJB*wqb8CQS433577572936:pl:ta:p1:p2:ac:ap:neg:fi:tiaud-146342138710:kwd-40256710:lp1007796:li:dec:dm:ppccp=UmFuZG9tSVYkc2RlIyh9YcsZ-Id2vkzIfTmYhvC5HOg;ws=&gclid=EAIaIQobChMI4Oru9fT8_QIVyDMrCh2YaA8JEAAYASAAEgKaCvD_BwE">BOOK HOTELS</a></center>`
+        document.querySelector(".popup-content").innerHTML=filling;
+    
+        button_active();
+   
+          })
+    })
+
+}
+ function button_active(){
+
+const content=document.querySelector('.popup-content')
+const overlay=document.getElementById('overlay')
+content.classList.add('active')
+overlay.classList.add('active')
+}
+   function close_popup(){
+    const content=document.querySelector('.popup-content')
+const overlay=document.getElementById('overlay')
+content.classList.remove('active')
+overlay.classList.remove('active')
+   }
+    </script>
+</body>
+</html>

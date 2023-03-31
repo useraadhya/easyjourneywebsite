@@ -1,0 +1,8 @@
+.tourist-places-header-content{
+    display:flex;
+    justify-content:space-between;
+}
+.tourist-places-row{
+    display:flex;
+    justify-content:space-between;
+}

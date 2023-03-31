@@ -1,0 +1,20 @@
+.contact-us-content{
+    display:flex;
+    justify-content: space-between;
+}
+.section-1,.section-3{
+    flex:1;
+}
+.section-2{
+    padding-top:50px;
+    flex:1;
+}
+.office-location{
+    height:300px;
+}
+.gmail-website{
+    height:250px;
+}
+.website-phone{
+    height:300px;
+}

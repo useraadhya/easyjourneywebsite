@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  <link rel="stylesheet" href="homepage-tabs.css">
+    <link rel="stylesheet" href="trains.css">
+    <link rel="stylesheet" href="tabs.css">
+    <link rel="stylesheet" href="trains_info.css">
+    <link rel="stylesheet" href="new.css">
+</head>
+<body>
+    <div class = "header">
+        <div>
+            <h1><span style="color:red;">E</span>asy <span style="color:red;">J</span>ourney</h1>
+        </div>
+        <nav>
+            <ul id = "MenuItems">
+              <li><a href ='./homepage.html' id="register_in_header">Register</a></li>
+              <li><a href ='./content-2.html'  >Login</a></li>
+              <li><a href ='./content-3.html' >Contact Us </a></li>
+              <li><a href ='./content-4.html' >Book Ticket</a></li>
+            </ul>
+    </nav>
+
+</div>
+
+<div id ="bookticket" class="content-4">
+  <form class="booking-section"> <img class="g20" src="imgs/g20-logo.png">
+      <h2 style="text-shadow:2px 2px 5px grey,0 0 25px blue,0 0 5px darkblue; color:black">SEARCH TRAINS</h2>
+      <div>
+         <img class="icons" src="imgs/senticon.png">
+         <input class="sent" type="text" placeholder="From" id="from" required>
+         <input type="date" class="right-box-above"  id="date" required>
+         <!-- <script> 
+       newDateFormat= document.getElementById('date')
+       let day=
+        </script> -->
+      </div>
+      <div class="bet"><span style='font-size:20px;'>&#8645;</span></div>
+      <div>
+        <img class="icons" src="imgs/location.png">
+         <input  class="box-train" type="form"  placeholder="To" id="to" required>
+         
+        </div>
+      <div>
+       
+      </div>
+      <button class="search" onClick="search()">Search</button> 
+    </form>
+</div>
+
+<div class="bgd-color">
+    <div class="inside-content">
+    <div class="close" id="close">+</div>
+    <h1>Trains Information</h1>
+
+    <div class="all_trains" id="table-body">
+     
+     <div class="trains_indi" > 
+
+      <div class="col1" >
+        <div id="col1row1"></div>
+     <br ><div id="col1row2" ></div>
+  </div>
+
+  <div class="col2">
+  <div id="col2row1"></div>
+  <br><div id="col2row2" ></div>
+  </div>
+
+  <div class="col3">
+   <h6></h6></div>
+  
+  <div class="col4">
+  <div id="col4row1"></div>
+  <br ><div id="col4row2"></div>
+  </div>
+  
+  </div>
+
+  <a class="link-redirect" target="_blank" href="https://www.railyatri.in/train-ticket?utm_source=tt_landing_dweb_header_ttb">BOOK TICKET<a>
+    </div>
+    </div>
+  </div> 
+  
+
+  <!-- <div class="tourist-places-header-content"><div>NAME OF PLACE</div>
+  <div>KIND OF PLACE</div>
+  <div>RATING OF PLACE</div></div>  -->
+<div id="full-tourist-places-content">
+    <div class="tourist-places-row">
+        <div id="tourist-places-col1-row"></div>
+        <div id="tourist-places-col2-row"></div>
+        <div id="tourist-places-col3-row"></div>
+    </div>
+</div>
+
+
+  <script>
+ 
+    const from=document.getElementById('from')
+    const to=document.getElementById('to')
+    const date=document.getElementById('date')
+   content=document.getElementById('')
+    //use backticks if we want to write html code in script tag
+    
+    function search(e)
+{    
+event.preventDefault();
+console.log(date)
+
+let data="";
+ url=`https://railway-w6eh.onrender.com/proxy?from=${from.value}&to=${to.value}&date=${date.value}`;
+ fetch(url).then((response)=>{
+
+   return response.json();
+ }).then((trains)=>{   
+
+//  if (from.value=="" || to.value=="" || date.value=="")
+//       
+//     console.log('hii')} 
+  console.log(trains)
+  console.log((trains.data[0]));
+  console.log(trains.data.length);
+//const dstnstnname=trains.data[0].train_base.dstn_stn_name;
+for(i=0;i<trains.data.length;i++){
+console.log(trains.data[i].train_base.train_name);
+data+=
+`<div class=trains_indi> <div class="col1" ><div id="col1row1">${trains.data[i].train_base.train_name}</div>
+    <br ><div id="col1row2" >${trains.data[i].train_base.train_no}</div>
+</div>
+<div class="col2">
+<div id="col2row1">${trains.data[i].train_base.from_time}</div>
+<br><div id="col2row2" >${trains.data[i].train_base.from_stn_name}</div>
+</div>
+<div class="col3"><span class="circle-1 pull-left"></span>
+<span class="circle-2 pull-right"></span>
+<span class="divider-line"></span>
+${trains.data[i].train_base.travel_time} hours</div>
+
+<div class="col4">
+<div id="col4row1">${trains.data[i].train_base.to_time}</div>
+<br ><div id="col4row2">${trains.data[i].train_base.to_stn_name}</div>
+</div></div>
+<br>`
+
+
+    document.querySelector('.bgd-color').style.display='flex';
+window.scrollTo(0,document.body.scrollHeight);
+//document.body.scrollheight -to scroll to bottom
+}
+data+=`<center><a class="link-redirect" target="_blank" href="https://www.railyatri.in/train-ticket?utm_source=tt_landing_dweb_header_ttb">BOOK TICKET<a></center>
+<br>
+<center><a target="_blank" href="./tourist_places.html">SEARCH FOR TOURIST PLACES</a></center>`
+document.getElementById("table-body").innerHTML=data;
+
+ 
+const dstnstnname=trains.data[0].train_base.dstn_stn_name;
+url=`https://api.opentripmap.com/0.1/en/places/geoname?name=${dstnstnname}&apikey=5ae2e3f221c38a28845f05b6999a4d65aa8c74828bbbfe2e17031b2c`
+fetch(url).then((response)=>{
+    return response.json()
+}).then((parameters)=>{
+    console.log(paramters);
+const latitude=parameters.lat;
+const longitude=parameters.lon;
+console.log(parameters.lat)
+url=`https://api.opentripmap.com/0.1/en/places/radius?radius=100000&lon=${longitude}&lat=${latitude}&kinds=interesting_places&limit=20apikey=5ae2e3f221c38a28845f05b69c2169c9a9bfa0f1d67e7e97600d6f3d`
+fetch(url).then((response)=>{
+    return response.json()
+}).then((places)=>{
+    console.log(places)
+    var tourist_places_data=`<div class="tourist-places-header-content"><div>NAME OF PLACE</div>
+  <div>KIND OF PLACE</div>
+  <div>RATING OF PLACE</div></div>
+  <br>`;
+    for(i=0;i<places.features.length;i++){
+        tourist_places_data+=`<div class="tourist-places-row">
+        <div id="tourist-places-col1-row">${places.features[i].properties.name}</div>
+        <div id="tourist-places-col2-row">${places.features[i].properties.kinds}</div>
+        <div id="tourist-places-col3-row">${places.features[i].properties.rate}</div>
+    </div>
+    <br>`
+    }
+    tourist_places_data+=`<center><a href="https://www.booking.com/index.en.html?aid=309654;label=hotels-english-en-india-KB9tA8VJx7pasJB*wqb8CQS433577572936:pl:ta:p1:p2:ac:ap:neg:fi:tiaud-146342138710:kwd-40256710:lp1007796:li:dec:dm:ppccp=UmFuZG9tSVYkc2RlIyh9YcsZ-Id2vkzIfTmYhvC5HOg;ws=&gclid=EAIaIQobChMI4Oru9fT8_QIVyDMrCh2YaA8JEAAYASAAEgKaCvD_BwE">BOOK HOTELS</a></center>`
+    document.querySelector("full-tourist-places-content").innerHTML=tourist_places_data
+}).catch((error)=>{
+  console.log(error)
+})
+})
+}
+ )
+
+}
+document.getElementById('close').addEventListener('click',
+function(){
+    document.querySelector('.bgd-color').style.display='none';
+});
+
+
+    </script> 
+   

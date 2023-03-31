@@ -1,0 +1,120 @@
+body{
+    background-image: url('gradient.jpg');
+    background-repeat:no-repeat;
+    background-size: cover;
+    height:fit-content;
+}
+.number{
+   margin-top: 20px;
+   height:25px;
+   width:250px;
+   margin-bottom:20px;
+}
+.kind{
+    margin-top: 20px;
+    height:32px;
+    width:257px;
+    margin-bottom:25px;
+}
+.limit{
+    height:25px;
+    width:250px;
+}
+.places-search{
+    display:inline-block;
+}
+.tourism-img{
+    display:inline-block;
+    margin-left:50px;
+}
+.tourism-picture{
+    width:400px;
+    
+}
+#name,#kinds,#rate{
+  font-weight:bold ;
+}
+
+.city-name{
+    height:25px;
+    width:250px;
+}
+.popup-header{
+    display:flex;
+    justify-content:space-between ;
+    border-bottom:1px solid black;
+    padding:5px 5px ;
+}
+.popup-content{
+     top:50%;
+    left:50%; 
+    position:fixed;
+    transform:translate(-50%,-50%);
+    border:2px solid black;
+    border-radius: 10px;
+    z-index:10;
+    background-color: white;
+    display:none;
+    height:fit-content;
+
+}
+.popup-content.active{
+    display:block;
+}
+.popup-header-top{
+   padding-left: 5px;
+   font-size: 25px;
+   display:flex;
+   border-bottom:1px solid black;
+   font-weight: bold;
+   cursor:pointer;
+}
+.popup-bottom{
+    padding:10px 15px;
+    display:flex;
+    justify-content: space-between;
+    z-index:10;
+}
+#overlay{
+    position:fixed;
+    opacity:0;
+    top:0;
+    bottom:0;
+    right:0;
+    left:0;
+    background-color:black;
+    /* opacity:0.7; */
+    pointer-events:none;
+    
+}
+#overlay.active{
+    pointer-events: all;
+    opacity:0.7;
+   
+}
+.popup-overall{
+    display:none;
+}
+.popup-col1,.popup-col2{
+    margin-right:500px ;
+
+}
+.search-popup-display{
+    margin-top:20px;
+padding:8px 15px;
+border-radius:5px;
+color:blue;
+ background-color: rgb(197, 193, 193);
+cursor:pointer;
+
+
+}
+.search-popup-display:hover{
+    box-shadow:5px 5px grey;
+}
+.tourist_places_content{
+    display:flex;
+    justify-content: center;
+    align-items:center;
+    height:fit-content;
+}
